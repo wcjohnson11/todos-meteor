@@ -1,0 +1,58 @@
+<head>
+  <title>Todos</title>
+</head>
+
+<body>
+<div class='container'>
+	<div class='login'>
+		{{> loginButtons}}
+	</div>
+	{{> TodosPanel}}
+</div>
+</body>
+
+<template name='TodosPanel'>
+	<div class='todos-panel'>
+		{{> CreateTodoItem}}
+
+		<ul class='todos-list'>
+			{{#each items}}
+			<!-- The {{isDoneClass}} adds class of done for styling-->
+				<li class='todo-item {{isDoneClass}}'>
+					{{> TodoItem}}
+				</li>
+				{{else}}
+				 <li class='todo-item empty'>
+				 	No todos yet.
+				 </li>
+			{{/each}}
+		</ul>
+
+		{{> TodosCount}}
+	</div>
+</template>
+
+<template name='TodoItem'>
+	<div class='done'>
+		<input type='checkbox' name='is_done' {{isDoneChecked}} />
+	</div>
+	<div class='subject'>
+		{{subject}}
+	</div>
+</template>
+
+<template name='CreateTodoItem'>
+	<form class='create-todo'>
+		{{#if currentUser}}
+		<input type='text' placeholder='Create new ToDo...'/>
+		{{else}}
+		<input type='text' readonly placeholder='Sign in to create a ToDo list'/>
+		{{/if}}
+	</form>
+</template>
+
+<template name='TodosCount'>
+	<div class='todos-count'>
+		{{completedCount}} / {{totalCount}} todos completed
+	</div>
+</template>
